@@ -3,9 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="apps.mai.moviesapp.DetailsActivity"
-    android:orientation="vertical"
-    >
+    android:orientation="vertical">
     <include
         android:id="@+id/toolbar"
         layout="@layout/toolbar"/>
@@ -13,5 +11,6 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:id="@+id/movie_detail"></FrameLayout>
+        android:id="@+id/content_settings"
+        android:padding="@dimen/activity_horizontal_margin"></FrameLayout>
 </LinearLayout>

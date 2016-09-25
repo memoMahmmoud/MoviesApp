@@ -8,7 +8,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 
@@ -16,6 +15,8 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
+
+import apps.mai.moviesapp.rest.Movie;
 
 /**
  * Created by Mai_ on 13-Aug-16.
@@ -69,8 +70,8 @@ public class RecyclerAdapter extends BaseAdapter {
         //movies.get(i).setImage(bitmap);
 
 
-            TextView movieTitle= (TextView) row.findViewById(R.id.gridview_text);
-            movieTitle.setText(movies.get(i).getTitle());
+            //TextView movieTitle= (TextView) row.findViewById(R.id.gridview_text);
+            //movieTitle.setText(movies.get(i).getTitle());
 
 
         return row;

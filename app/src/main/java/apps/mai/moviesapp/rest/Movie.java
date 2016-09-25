@@ -1,4 +1,6 @@
-package apps.mai.moviesapp;
+package apps.mai.moviesapp.rest;
+
+import android.database.Cursor;
 
 import java.io.Serializable;
 
@@ -7,6 +9,16 @@ import java.io.Serializable;
  */
 public class Movie implements Serializable{
     String title,description,poster_path,release_date;
+    int movie_id;
+
+    public int getMovie_id() {
+        return movie_id;
+    }
+
+    public void setMovie_id(int movie_id) {
+        this.movie_id = movie_id;
+    }
+
     int vote_average;
     byte[] image;
 
@@ -17,9 +29,13 @@ public class Movie implements Serializable{
     public void setImage(byte[] image) {
         this.image = image;
     }
+    public Movie(){
 
-    public Movie(String title, String description, String poster_path,
+    }
+
+    public Movie(int movie_id,String title, String description, String poster_path,
                  String release_date, int vote_average) {
+        this.movie_id = movie_id;
         this.title = title;
         this.description = description;
         this.poster_path = poster_path;
@@ -66,5 +82,9 @@ public class Movie implements Serializable{
 
     public void setVote_average(int vote_average) {
         this.vote_average = vote_average;
+    }
+    public static Movie fromCursor(Cursor cursor){
+        Movie movie = new Movie();
+        return movie;
     }
 }
