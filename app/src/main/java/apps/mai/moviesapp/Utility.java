@@ -16,9 +16,19 @@ public class Utility {
         NetworkInfo netInfo = cm.getActiveNetworkInfo();
         return netInfo != null && netInfo.isConnectedOrConnecting();
     }
-    public static String getPreferredSort(Context context){
+    public static int getPreferredSort(Context context){
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
-        return prefs.getString(context.getString(R.string.pref_sort_key),
+        String sort = prefs.getString(context.getString(R.string.pref_sort_key),
                 context.getString(R.string.pref_sort_default_value));
+        if (sort.contains("popular")){
+            return 0;
+        }
+        else if (sort.contains("top")){
+            return  1;
+        }
+        else{
+            return 2;
+        }
+
     }
 }

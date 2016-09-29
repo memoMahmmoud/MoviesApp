@@ -15,8 +15,21 @@ public class DetailsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_details);
         toolbar= (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        Bundle arguments = new Bundle();
+        arguments.putParcelable(DetailFragment.DETAIL_URI, getIntent().getData());
 
-        getSupportFragmentManager().beginTransaction().replace(R.id.movie_detail,
-                new DetailFragment(),FRAGMENT_TAG).commit();
+        if (savedInstanceState==null){
+
+
+            DetailFragment fragment = new DetailFragment();
+            fragment.setArguments(arguments);
+            getSupportFragmentManager().beginTransaction().
+                    add(R.id.movie_detail,fragment).commit();
+
+        }
+
+        //getSupportFragmentManager().beginTransaction().replace(R.id.movie_detail,
+                //new DetailFragment(),FRAGMENT_TAG).commit();
     }
+
 }

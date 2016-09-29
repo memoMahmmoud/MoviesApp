@@ -13,7 +13,7 @@ import net.simonvt.schematic.annotation.TableEndpoint;
 @ContentProvider(authority = MovieProvider.AUTHORITY, database = MovieDatabase.class)
 public final class MovieProvider {
     public static final String AUTHORITY =
-            "apps.mai.moviesapp";
+            "apps.mai.moviesapp.data.MovieProvider";
     static final Uri BASE_CONTENT_URI = Uri.parse("content://" + AUTHORITY);
 
     interface Path{
@@ -33,7 +33,7 @@ public final class MovieProvider {
         @ContentUri(
                 path = Path.MOVIES,
                 type = "vnd.android.cursor.dir/movie",
-                defaultSort = MovieColumns.TITLE + " ASC")
+                defaultSort = MovieColumns._ID + " ASC")
         public static final Uri CONTENT_URI = buildUri(Path.MOVIES);
 
         @InexactContentUri(
@@ -45,5 +45,6 @@ public final class MovieProvider {
         public static Uri withId(long id){
             return buildUri(Path.MOVIES, String.valueOf(id));
         }
+
     }
 }

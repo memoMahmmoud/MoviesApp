@@ -24,6 +24,10 @@
         <activity android:name=".SettingsActivity"
             android:parentActivityName=".MainActivity"
             android:label="@string/title_activity_settings"></activity>
+        <provider
+            android:authorities="apps.mai.moviesapp.data.MovieProvider"
+            android:name="apps.mai.moviesapp.data.generated.MovieProvider"
+            android:exported="true"/>
     </application>
 
 </manifest>

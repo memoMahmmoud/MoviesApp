@@ -46,13 +46,6 @@
                     android:textSize="30sp"
                     android:textColor="@android:color/darker_gray"/>
                 <TextView
-                    android:id="@+id/movie_period"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="120min"
-                    android:textSize="30sp"
-                    android:textColor="@android:color/darker_gray"/>
-                <TextView
                     android:id="@+id/movie_vote_average"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -61,10 +54,10 @@
                     android:textColor="@android:color/black"
                     android:padding="10dp"/>
                 <Button
+                    android:id="@+id/button_favorite"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@color/colorLightGreen"
-                    android:text="make as \nfavorite"
+                    android:text="Make As Favorite"
                     android:textAppearance="?android:textAppearanceSmall"
                     android:padding="10dp"/>
 
