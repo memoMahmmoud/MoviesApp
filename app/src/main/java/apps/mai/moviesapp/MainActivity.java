@@ -43,16 +43,12 @@ public class MainActivity extends AppCompatActivity implements Serializable,Movi
         }
         else {
             mTwoPane = false;
-            //getSupportActionBar().setElevation(0);
         }
         int sort_position = Utility.getPreferredSort(this);
         if (Utility.isOnline(this)){
             FetchMoviesTask fetchMoviesTask=new FetchMoviesTask(sort_position,this);
             fetchMoviesTask.execute();
         }
-
-
-
     }
 
     @Override
