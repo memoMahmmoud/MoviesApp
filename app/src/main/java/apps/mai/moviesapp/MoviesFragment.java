@@ -29,6 +29,8 @@ public class MoviesFragment extends Fragment implements LoaderManager.LoaderCall
     RecyclerView rView;
     private static final int CURSOR_LOADER_ID = 0;
     private MovieCursorAdapter mCursorAdapter;
+    String selection;
+    String[] arg_selections;
 
 
     public MoviesFragment() {
@@ -58,7 +60,7 @@ public class MoviesFragment extends Fragment implements LoaderManager.LoaderCall
 
     }
     public interface Callback {
-        public void onItemSelected(Uri dateUri);
+        public void onItemSelected(Uri uri);
     }
     void onSortChanged(int sort){
         updateSort(sort);
@@ -83,8 +85,7 @@ public class MoviesFragment extends Fragment implements LoaderManager.LoaderCall
     @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
         int sort = Utility.getPreferredSort(getContext());
-        String selection;
-        String[] arg_selections;
+
         //user select popular
         if (sort == 0){
             selection = MovieColumns.POPULAR_MOVIE+ " =?";

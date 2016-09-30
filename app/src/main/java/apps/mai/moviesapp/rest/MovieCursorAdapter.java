@@ -11,10 +11,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
+import apps.mai.moviesapp.App;
 import apps.mai.moviesapp.MoviesFragment;
 import apps.mai.moviesapp.R;
 import apps.mai.moviesapp.data.MovieColumns;
-import apps.mai.moviesapp.data.MovieProvider;
 
 /**
  * Created by Mai_ on 24-Sep-16.
@@ -40,7 +40,8 @@ public class MovieCursorAdapter extends CursorRecyclerViewAdapter<MovieCursorAda
 
         @Override
         public void onClick(View view) {
-            Cursor cursor = getCursor();
+
+            /*Cursor cursor = getCursor();
             if (cursor != null) {
                 int position = getAdapterPosition();
                 cursor.moveToPosition(position);
@@ -48,7 +49,11 @@ public class MovieCursorAdapter extends CursorRecyclerViewAdapter<MovieCursorAda
                 ((MoviesFragment.Callback)mContext).onItemSelected(MovieProvider.Movies.
                         withId(movie_id));
             }
-            cursor.close();
+            cursor.close();*/
+            App.cursor = getCursor();
+            App.adapterPosition = getAdapterPosition();
+            ((MoviesFragment.Callback)mContext).onItemSelected(App.getUri());
+
         }
     }
 
@@ -65,8 +70,20 @@ public class MovieCursorAdapter extends CursorRecyclerViewAdapter<MovieCursorAda
     public void onBindViewHolder(ViewHolder viewHolder, Cursor cursor){
 
         byte[] image = cursor.getBlob(cursor.getColumnIndex(MovieColumns.IMAGE));
-        Bitmap bitmap = BitmapFactory.decodeByteArray(image, 0, image.length);
-        viewHolder.movieImageView.setImageBitmap(bitmap);
+        /*Resources r = mContext.getResources();
+        Drawable[] layers = new Drawable[2];
+        Drawable imageD = new BitmapDrawable(mContext.getResources(),BitmapFactory.
+                decodeByteArray(image, 0, image.length));
+        layers[0] = imageD;
+        layers[1] = r.getDrawable(R.drawable.tt);
+        LayerDrawable layerDrawable = new LayerDrawable(layers);*/
+        //testimage.setImageDrawable(layerDrawable);
+        if (image != null){
+            Bitmap bitmap = BitmapFactory.decodeByteArray(image, 0, image.length);
+            //viewHolder.movieImageView.setImageDrawable(layerDrawable);
+            viewHolder.movieImageView.setImageBitmap(bitmap);
+        }
+
         DatabaseUtils.dumpCursor(cursor);
 
 

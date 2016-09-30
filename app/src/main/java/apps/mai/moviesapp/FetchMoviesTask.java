@@ -20,7 +20,6 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.Vector;
 
 import apps.mai.moviesapp.data.MovieColumns;
 import apps.mai.moviesapp.data.MovieProvider;
@@ -130,8 +129,6 @@ public class FetchMoviesTask extends AsyncTask<Void,Void,String> {
         JSONArray jsonArrayResultsKey=jsonObject.getJSONArray("results");
         //Movie movie;
 
-        //iterate for all movies
-        Vector<ContentValues> cVVector = new Vector<ContentValues>(jsonArrayResultsKey.length());
         ContentValues contentValues = new ContentValues();
         if (sort_position ==0){
             contentValues.put(MovieColumns.POPULAR_MOVIE,0);
@@ -145,6 +142,7 @@ public class FetchMoviesTask extends AsyncTask<Void,Void,String> {
                     contentValues,null,null);
 
         }
+
 
         for (int i=0;i<jsonArrayResultsKey.length();i++){
             //get each movie object
@@ -183,10 +181,10 @@ public class FetchMoviesTask extends AsyncTask<Void,Void,String> {
                 context.getContentResolver().update(MovieProvider.Movies.withId(movie_id),
                         movieContentValues,null,null);
             }
-
             SaveImageAsBitmap saveImageAsBitmap = new SaveImageAsBitmap(context,movieContentValues,
                     poster_path,movie_id);
             saveImageAsBitmap.execute();
+
             cursor.close();
 
 

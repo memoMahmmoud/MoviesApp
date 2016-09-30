@@ -2,9 +2,14 @@ package apps.mai.moviesapp;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.database.Cursor;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.net.Uri;
 import android.preference.PreferenceManager;
+
+import apps.mai.moviesapp.data.MovieColumns;
+import apps.mai.moviesapp.data.MovieProvider;
 
 /**
  * Created by Mai_ on 23-Sep-16.
@@ -30,5 +35,21 @@ public class Utility {
             return 2;
         }
 
+    }
+    public static Uri getUri(Cursor cursor, int adapterPosition){
+        if (cursor != null){
+            if(cursor.moveToPosition(adapterPosition)){
+                int movie_id = cursor.getInt(cursor.getColumnIndex(MovieColumns.MOVIE_ID));
+                Uri mUri = MovieProvider.Movies.withId(movie_id);
+                /*cursor = App.getgetContentResolver().query(mUri,MOVIE_COLUMNS,null,null,null);
+                if (cursor.moveToFirst()){
+                    bindDataFromCursor(cursor);
+                }*/
+                return mUri;
+            }
+
+        }
+        cursor.close();
+        return null;
     }
 }

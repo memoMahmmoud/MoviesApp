@@ -1,8 +1,11 @@
 package apps.mai.moviesapp;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
 
 public class DetailsActivity extends AppCompatActivity {
     Toolbar toolbar;
@@ -16,6 +19,9 @@ public class DetailsActivity extends AppCompatActivity {
         toolbar= (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         Bundle arguments = new Bundle();
+        //arguments.putInt("adapter",getIntent().getIntExtra("adapter",0));
+
+
         arguments.putParcelable(DetailFragment.DETAIL_URI, getIntent().getData());
 
         if (savedInstanceState==null){
@@ -30,6 +36,26 @@ public class DetailsActivity extends AppCompatActivity {
 
         //getSupportFragmentManager().beginTransaction().replace(R.id.movie_detail,
                 //new DetailFragment(),FRAGMENT_TAG).commit();
+    }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main,menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.action_settings: {
+
+                Intent intent = new Intent(this,SettingsActivity.class);
+                startActivity(intent);
+                return true;
+            }
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+
     }
 
 }
