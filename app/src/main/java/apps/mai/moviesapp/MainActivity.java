@@ -32,11 +32,12 @@ public class MainActivity extends AppCompatActivity implements Serializable,Movi
 
         if (findViewById(R.id.movie_detail)!= null){
             // there were 2 pane
-            /*if (savedInstanceState == null){
+            if (savedInstanceState == null){
                 getSupportFragmentManager().beginTransaction().replace(R.id.movie_detail,
                         new DetailFragment(),
                         DETAIL_FRAGMENT_TAG).commit();
-            }*/
+            }
+
 
             mTwoPane = true;
         }
@@ -81,9 +82,7 @@ public class MainActivity extends AppCompatActivity implements Serializable,Movi
             // In two-pane mode, show the detail view in this activity by
             // adding or replacing the detail fragment using a
             // fragment transaction.
-            getSupportFragmentManager().beginTransaction().replace(R.id.movie_detail,
-                    new DetailFragment(),
-                    DETAIL_FRAGMENT_TAG).commit();
+
             Bundle args = new Bundle();
             //args.putInt("adapter",adapterPosition);
             args.putParcelable(DetailFragment.DETAIL_URI, uri);

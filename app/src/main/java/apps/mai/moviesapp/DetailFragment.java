@@ -260,7 +260,7 @@ public class DetailFragment extends Fragment implements LoaderManager.LoaderCall
             }
 
         }
-        data.close();
+
     }
 
     @Override

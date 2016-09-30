@@ -31,6 +31,8 @@ public class MoviesFragment extends Fragment implements LoaderManager.LoaderCall
     private MovieCursorAdapter mCursorAdapter;
     String selection;
     String[] arg_selections;
+    int mPosition;
+    public static final String SELECTED_KEY_POSITION = "position";
 
 
     public MoviesFragment() {
@@ -53,12 +55,14 @@ public class MoviesFragment extends Fragment implements LoaderManager.LoaderCall
         mCursorAdapter = new MovieCursorAdapter(getContext(), null);
         rView.setAdapter(mCursorAdapter);
 
+
         return view;
 
 
 
 
     }
+
     public interface Callback {
         public void onItemSelected(Uri uri);
     }
@@ -112,6 +116,10 @@ public class MoviesFragment extends Fragment implements LoaderManager.LoaderCall
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
         mCursorAdapter.swapCursor(data);
+        /*if (mPosition != ListView.INVALID_POSITION){
+            rView.smoothScrollToPosition(mPosition);
+
+        }*/
         //Toast.makeText(getActivity(),"on load finish on movies fragment",Toast.LENGTH_SHORT).show();
     }
 
