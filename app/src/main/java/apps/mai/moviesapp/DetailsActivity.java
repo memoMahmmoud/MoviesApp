@@ -7,8 +7,12 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 public class DetailsActivity extends AppCompatActivity {
-    Toolbar toolbar;
+    @BindView(R.id.toolbar) Toolbar toolbar;
+
     private static final String FRAGMENT_TAG = "detail";
 
 
@@ -16,7 +20,7 @@ public class DetailsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_details);
-        toolbar= (Toolbar) findViewById(R.id.toolbar);
+        ButterKnife.bind(this);
         setSupportActionBar(toolbar);
         Bundle arguments = new Bundle();
         //arguments.putInt("adapter",getIntent().getIntExtra("adapter",0));

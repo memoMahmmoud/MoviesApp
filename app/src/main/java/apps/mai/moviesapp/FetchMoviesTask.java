@@ -33,16 +33,12 @@ public class FetchMoviesTask extends AsyncTask<Void,Void,String> {
     BufferedReader reader;
     String movieJsonStr;
     static int sort_position;
-    //GridView gridView;
     Context context;
-    //RecyclerView recyclerView;
 
     FetchMoviesTask(int sort_position,Context context)
     {
         this.sort_position=sort_position;
-        //this.gridView = gridView;
         this.context = context;
-        //this.recyclerView = recyclerView;
     }
 
 
@@ -198,8 +194,7 @@ public class FetchMoviesTask extends AsyncTask<Void,Void,String> {
         ContentValues movieContentValues;
         String poster_path;
         int movie_id;
-        //ImageView imageView;
-        //Movie movie;
+
         SaveImageAsBitmap(Context context,ContentValues movieContentValues,String poster_path,int movie_id) {
             this.context = context;
             this.movieContentValues = movieContentValues;
@@ -217,8 +212,6 @@ public class FetchMoviesTask extends AsyncTask<Void,Void,String> {
                 contentValues.put(MovieColumns.IMAGE,byteArray);
                 context.getContentResolver().update(MovieProvider.Movies.withId(movie_id),
                         contentValues,null,null);
-
-                //movieImage.setImageBitmap(movies.get(i).getImage());
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -228,7 +221,6 @@ public class FetchMoviesTask extends AsyncTask<Void,Void,String> {
         @Override
         protected void onPostExecute(byte[] bytes) {
 
-            //movieContentValues.put(MovieColumns.IMAGE,bytes);
         }
 
     }

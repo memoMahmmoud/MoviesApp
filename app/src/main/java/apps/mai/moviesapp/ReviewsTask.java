@@ -40,7 +40,7 @@ public class ReviewsTask extends AsyncTask<Void,Void,String> {
 
         try {
             final String REVIEWS_URL=context.getString(R.string.movie_base_url)+
-                    String.format(context.getString(R.string.remain_review_url),movie_id);
+                    String.format(context.getString(R.string.remain_review_url),""+movie_id);
             final String api_key=context.getString(R.string.api_key);
             //build uri for movies api
             Uri builtUri=Uri.parse(REVIEWS_URL).buildUpon()

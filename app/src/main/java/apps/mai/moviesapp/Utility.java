@@ -14,7 +14,11 @@ import apps.mai.moviesapp.data.MovieProvider;
 /**
  * Created by Mai_ on 23-Sep-16.
  */
-public class Utility {
+public final class Utility {
+    // Suppress default constructor for noninstantiability
+    private Utility(){
+        throw new AssertionError();
+    }
     public static boolean isOnline(Context context) {
         ConnectivityManager cm =
                 (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
@@ -41,10 +45,6 @@ public class Utility {
             if(cursor.moveToPosition(adapterPosition)){
                 int movie_id = cursor.getInt(cursor.getColumnIndex(MovieColumns.MOVIE_ID));
                 Uri mUri = MovieProvider.Movies.withId(movie_id);
-                /*cursor = App.getgetContentResolver().query(mUri,MOVIE_COLUMNS,null,null,null);
-                if (cursor.moveToFirst()){
-                    bindDataFromCursor(cursor);
-                }*/
                 return mUri;
             }
 

@@ -9,14 +9,17 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 /**
  * Created by Mai_ on 24-Sep-16.
  */
 public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.CustomViewHolder>{
 
 
-    Context context;
-    ArrayList<String> reviews_link;
+    private Context context;
+    private ArrayList<String> reviews_link;
 
     public ReviewAdapter(Context context,
                           ArrayList<String> reviews_link) {
@@ -44,11 +47,12 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.CustomView
         return reviews_link.size();
     }
     public class CustomViewHolder extends RecyclerView.ViewHolder{
-        protected TextView textView;
+        @BindView(R.id.review) TextView textView;
 
         public CustomViewHolder(View view) {
             super(view);
-            this.textView = (TextView) view.findViewById(R.id.review);
+            ButterKnife.bind(this,view);
+            //this.textView = (TextView) view.findViewById(R.id.review);
         }
 
     }

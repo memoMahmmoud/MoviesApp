@@ -10,22 +10,19 @@ import android.view.MenuItem;
 
 import java.io.Serializable;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 public class MainActivity extends AppCompatActivity implements Serializable,MoviesFragment.Callback{
-    Toolbar toolbar;
+    @BindView(R.id.toolbar) Toolbar toolbar;
     private boolean mTwoPane;
     private static final String DETAIL_FRAGMENT_TAG = "deail_fragment_tag";
     int sort_position = -1;
-
-
-
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.activity_main);
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        ButterKnife.bind(this);
         setSupportActionBar(toolbar);
 
         sort_position = Utility.getPreferredSort(this);
@@ -37,8 +34,6 @@ public class MainActivity extends AppCompatActivity implements Serializable,Movi
                         new DetailFragment(),
                         DETAIL_FRAGMENT_TAG).commit();
             }
-
-
             mTwoPane = true;
         }
         else {
@@ -61,7 +56,6 @@ public class MainActivity extends AppCompatActivity implements Serializable,Movi
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
             case R.id.action_settings: {
-
                 Intent intent = new Intent(this,SettingsActivity.class);
                 startActivity(intent);
                 return true;
@@ -80,7 +74,6 @@ public class MainActivity extends AppCompatActivity implements Serializable,Movi
             // fragment transaction.
 
             Bundle args = new Bundle();
-            //args.putInt("adapter",adapterPosition);
             args.putParcelable(DetailFragment.DETAIL_URI, uri);
             DetailFragment fragment = new DetailFragment();
             fragment.setArguments(args);
@@ -89,7 +82,6 @@ public class MainActivity extends AppCompatActivity implements Serializable,Movi
 
         } else {
             Intent intent = new Intent(this, DetailsActivity.class).setData(uri);
-            //intent.putExtra("adapter",adapterPosition);
             startActivity(intent);
         }
 

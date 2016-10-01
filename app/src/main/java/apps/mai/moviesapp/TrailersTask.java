@@ -40,7 +40,7 @@ public class TrailersTask extends AsyncTask<Void,Void,String> {
 
         try {
             final String TRAILERS_URL=context.getString(R.string.movie_base_url)+
-                    String.format(context.getString(R.string.remain_trailer_url),movie_id);
+                    String.format(context.getString(R.string.remain_trailer_url),""+movie_id);
             final String api_key=context.getString(R.string.api_key);
             //build uri for movies api
             Uri builtUri=Uri.parse(TRAILERS_URL).buildUpon()
@@ -64,11 +64,7 @@ public class TrailersTask extends AsyncTask<Void,Void,String> {
             if (stringBuffer.length()!=0){
                 trailerJsonStr=stringBuffer.toString();
                 return trailerJsonStr;
-
-
             }
-
-
         } catch (IOException e) {
             Log.e(LOG_TAG, "Error ", e);
             return null;

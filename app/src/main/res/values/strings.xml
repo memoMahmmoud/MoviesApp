@@ -1,15 +1,15 @@
 <resources xmlns:xliff="http://schemas.android.com/tools">
-    <string name="app_name">Movies App</string>
-    <string name="movie_base_url">https://api.themoviedb.org/3</string>
-    <string name="popular_movies_remain_url">/movie/popular?</string>
-    <string name="top_rated_movies_remain_url">/movie/top_rated?</string>
-    <string name="remain_trailer_url">/movie/<xliff:g id="movie_id">%1$s</xliff:g>/videos</string>
-    <string name="remain_review_url">/movie/<xliff:g id="movie_id">%1$s</xliff:g>/reviews</string>
-    <string name="api_key">9e874844d50ba20104e9f49185e2389c</string>
-    <string name="poster_path_base_url">http://image.tmdb.org/t/p/</string>
-    <string name="size_poster">w185/</string>
+    <string name="app_name" translatable="false">Movies App</string>
+    <string name="movie_base_url" translatable="false">https://api.themoviedb.org/3</string>
+    <string name="popular_movies_remain_url" translatable="false">/movie/popular?</string>
+    <string name="top_rated_movies_remain_url" translatable="false">/movie/top_rated?</string>
+    <string name="remain_trailer_url" translatable="false">/movie/<xliff:g id="movie_id">%1$s</xliff:g>/videos</string>
+    <string name="remain_review_url" translatable="false">/movie/<xliff:g id="movie_id">%1$s</xliff:g>/reviews</string>
+    <string name="api_key" translatable="false">9e874844d50ba20104e9f49185e2389c</string>
+    <string name="poster_path_base_url" translatable="false">http://image.tmdb.org/t/p/</string>
+    <string name="size_poster" translatable="false">w185/</string>
 
-    <string name="average_rate"><xliff:g id="rate">%1$1.2f</xliff:g>/10</string>
+    <string name="average_rate" translatable="false"><xliff:g id="rate">%1$1.2f</xliff:g>/10</string>
 
     <string name="title">Title: </string>
     <string name="release_date">Release Date: </string>
@@ -34,7 +34,5 @@
         <item>favorite</item>
     </string-array>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-
+    <string name="no_data_available">No movies favorited</string>
 </resources>

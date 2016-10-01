@@ -13,13 +13,16 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 /**
  * Created by Mai_ on 23-Sep-16.
  */
 public class TrailerAdapter extends RecyclerView.Adapter<TrailerAdapter.CustomViewHolder>{
 
 
-    Context context;
+    private Context context;
     ArrayList<String> trailers_link;
 
     public TrailerAdapter(Context context, //resourceId=your layout
@@ -68,60 +71,12 @@ public class TrailerAdapter extends RecyclerView.Adapter<TrailerAdapter.CustomVi
         return trailers_link.size();
     }
     public class CustomViewHolder extends RecyclerView.ViewHolder{
-        protected ImageView imageView;
-        protected TextView textView;
+        @BindView(R.id.trailer_image) ImageView imageView;
+        @BindView(R.id.trailer_name) TextView textView;
 
         public CustomViewHolder(View view) {
             super(view);
-            this.imageView = (ImageView) view.findViewById(R.id.trailer_image);
-            this.textView = (TextView) view.findViewById(R.id.trailer_name);
+            ButterKnife.bind(this,view);
         }
-
     }
-
-
-    /*
-    private class ViewHolder {
-        ImageView image_trailer;
-        TextView title_trailer;
-    }
-
-    @Override
-    public int getCount() {
-        return trailers_link.size();
-    }
-
-    @Override
-    public Object getItem(int i) {
-        return trailers_link.get(i);
-    }
-
-    @Override
-    public long getItemId(int i) {
-        return 0;
-    }
-
-    public View getView(int position, View convertView, ViewGroup parent) {
-        ViewHolder holder = null;
-        String trailer_link = trailers_link.get(position);
-
-        LayoutInflater mInflater = (LayoutInflater) context
-                .getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
-        if (convertView == null) {
-            //convertView = mInflater.inflate(R.layout.trailer_item, null);
-            LayoutInflater inflater = (LayoutInflater) context
-                    .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            convertView=inflater.inflate(R.layout.trailer_item,parent,false);
-            holder = new ViewHolder();
-            holder.title_trailer = (TextView) convertView.findViewById(R.id.trailer_name);
-            holder.image_trailer = (ImageView) convertView.findViewById(R.id.trailer_image);
-            convertView.setTag(holder);
-        } else
-            holder = (ViewHolder) convertView.getTag();
-
-        holder.title_trailer.setText("Trailer " + (position + 1));
-        //holder.imageView.setImageResource(rowItem.getImageId());
-
-        return convertView;
-    }*/
 }
