@@ -13,6 +13,7 @@ import apps.mai.moviesapp.data.MovieProvider;
 public class App extends Application {
     public static Cursor cursor;
     public static int adapterPosition;
+    public static String firstTrailerLink;
     public static Uri getUri(){
         if (cursor != null){
             if(cursor.moveToPosition(adapterPosition)){

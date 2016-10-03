@@ -13,7 +13,8 @@ import java.io.Serializable;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class MainActivity extends AppCompatActivity implements Serializable,MoviesFragment.Callback{
+public class MainActivity extends AppCompatActivity implements Serializable,MoviesFragment.Callback
+{
     @BindView(R.id.toolbar) Toolbar toolbar;
     private boolean mTwoPane;
     private static final String DETAIL_FRAGMENT_TAG = "deail_fragment_tag";
@@ -102,4 +103,7 @@ public class MainActivity extends AppCompatActivity implements Serializable,Movi
         }
         super.onResume();
     }
+
+
+
 }

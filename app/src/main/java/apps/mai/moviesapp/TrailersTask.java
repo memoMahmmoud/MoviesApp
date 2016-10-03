@@ -28,10 +28,12 @@ public class TrailersTask extends AsyncTask<Void,Void,String> {
     Context context;
     int movie_id;
     RecyclerView trailer_list_view;
+    DetailFragment detailFragment;
     TrailersTask(Context context,int movie_id,RecyclerView trailer_list_view){
         this.context = context;
         this.movie_id = movie_id;
         this.trailer_list_view = trailer_list_view;
+
     }
 
 
@@ -106,6 +108,8 @@ public class TrailersTask extends AsyncTask<Void,Void,String> {
         }
         TrailerAdapter trailerAdapter = new TrailerAdapter(context,trailers);
         trailer_list_view.setAdapter(trailerAdapter);
+        String firstTrailer = trailers.get(0);
+        App.firstTrailerLink = context.getString(R.string.youtube_base_url).concat(firstTrailer);
 
 
     }

@@ -8,6 +8,7 @@
     <string name="api_key" translatable="false">9e874844d50ba20104e9f49185e2389c</string>
     <string name="poster_path_base_url" translatable="false">http://image.tmdb.org/t/p/</string>
     <string name="size_poster" translatable="false">w185/</string>
+    <string name="youtube_base_url" translatable="false">http://www.youtube.com/watch?v=</string>
 
     <string name="average_rate" translatable="false"><xliff:g id="rate">%1$1.2f</xliff:g>/10</string>
 
