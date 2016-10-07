@@ -131,6 +131,7 @@ public class MoviesFragment extends Fragment implements LoaderManager.LoaderCall
         // no data to display for user
         else {
             rView.setVisibility(View.GONE);
+            //rView.setVisibility(View.VISIBLE);
             emptyView.setVisibility(View.VISIBLE);
         }
 

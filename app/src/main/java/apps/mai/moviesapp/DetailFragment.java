@@ -26,6 +26,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import apps.mai.moviesapp.data.MovieColumns;
 import apps.mai.moviesapp.data.MovieProvider;
@@ -66,6 +67,7 @@ public class DetailFragment extends Fragment implements LoaderManager.LoaderCall
             MovieColumns.VOTE_AVERAGE
     };
     int positionAdapter;
+    Intent intent;
 
     // these constants correspond to the projection defined above, and must change if the
     // projection changes
@@ -151,11 +153,33 @@ public class DetailFragment extends Fragment implements LoaderManager.LoaderCall
         shareActionProvider= (ShareActionProvider)
                 MenuItemCompat.getActionProvider(shareItem);
 
-        shareActionProvider.setShareIntent(createShareForecastIntent());
+
+        /*shareActionProvider.setShareIntent(createShareForecastIntent());*/
+
 
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.menu_item_share:{
+                if (App.firstTrailerLink != null){
+                    Intent sharingIntent = new Intent(Intent.ACTION_SEND);
+                    sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT,"Title");
+                    sharingIntent.putExtra(Intent.EXTRA_TEXT,App.firstTrailerLink);
+                    sharingIntent.setType("text/plain");
+                    getActivity().startActivity(Intent.createChooser(sharingIntent,"share:"));
+                }
+                else {
+                    Toast.makeText(getActivity(), "No Internet to share first trailer ", Toast.LENGTH_LONG).show();
+                }
 
+                return true;
+        }
+
+        }
+        return super.onOptionsItemSelected(item);
+    }
 
     private Intent createShareForecastIntent(){
         /*if (App.firstTrailerLink != null){
@@ -165,14 +189,18 @@ public class DetailFragment extends Fragment implements LoaderManager.LoaderCall
         return null;*/
 
         //intent.setType("text/*");
-        if (App.firstTrailerLink != null){
-            Intent intent=new Intent(Intent.ACTION_VIEW);
+        if (App.firstTrailerLink != null) {
+
+            intent = new Intent(Intent.ACTION_VIEW);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET);
-            intent.setDataAndType(Uri.parse(App.firstTrailerLink), "video/*");
+            intent.setData(Uri.parse(App.firstTrailerLink));
+
+            //intent.setDataAndType(Uri.parse(App.firstTrailerLink), "video/*");
             //intent.putExtra(Intent.EXTRA_ORIGINATING_URI,Uri.parse(App.firstTrailerLink));
             return intent;
         }
-        return null;
+        else return null;
+
 
 
 
@@ -237,9 +265,10 @@ public class DetailFragment extends Fragment implements LoaderManager.LoaderCall
                 reviewsTask = new ReviewsTask(getActivity(),movie_id,review_list_view);
                 reviewsTask.execute();
                 // If onCreateOptionsMenu has already happened, we need to update the share intent now.
-                if (shareActionProvider != null) {
+                /*if (shareActionProvider != null) {
                     shareActionProvider.setShareIntent(createShareForecastIntent());
-                }
+                    startActivity(intent);
+                }*/
             }
 
         }

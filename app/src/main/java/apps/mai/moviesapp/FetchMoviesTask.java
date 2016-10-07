@@ -46,23 +46,23 @@ public class FetchMoviesTask extends AsyncTask<Void,Void,String> {
     protected String doInBackground(Void... voids) {
 
         try {
-            final String FORECAST_URL_BASE=context.getString(R.string.movie_base_url);
-            String sorting="";
+            Uri.Builder builder = new Uri.Builder();
+            builder.scheme("https").
+                    authority(context.getString(R.string.movie_base_url)).
+                    appendPath("3").appendPath("movie");
+
             if (sort_position==1){
                 //user select top rated movies
-                sorting=context.getString(R.string.top_rated_movies_remain_url);
+                builder.appendPath("top_rated");
             }
             else {
                 //user select popular movies movies
-                sorting=context.getString(R.string.popular_movies_remain_url);
+                builder.appendPath("popular");
             }
 
-            final String api_key=context.getString(R.string.api_key);
-            //build uri for movies api
-            Uri builtUri=Uri.parse(FORECAST_URL_BASE+sorting).buildUpon()
-                    .appendQueryParameter("api_key",api_key)
-                    .build();
+            builder.appendQueryParameter("api_key",context.getString(R.string.api_key));
 
+            Uri builtUri = builder.build();
             URL urlForMovieApi=new URL(builtUri.toString());
 
             // Create the request to OpenMoviesApi, and open the connection

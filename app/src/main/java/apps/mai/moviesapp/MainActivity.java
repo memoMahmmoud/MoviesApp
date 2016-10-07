@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import java.io.Serializable;
 
@@ -44,6 +45,9 @@ public class MainActivity extends AppCompatActivity implements Serializable,Movi
         if (Utility.isOnline(this)){
             FetchMoviesTask fetchMoviesTask=new FetchMoviesTask(sort_position,this);
             fetchMoviesTask.execute();
+        }
+        else {
+            Toast.makeText(this,"no internet to fetch data",Toast.LENGTH_LONG).show();
         }
     }
 

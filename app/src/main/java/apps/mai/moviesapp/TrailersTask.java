@@ -41,12 +41,19 @@ public class TrailersTask extends AsyncTask<Void,Void,String> {
     protected String doInBackground(Void... voids) {
 
         try {
-            final String TRAILERS_URL=context.getString(R.string.movie_base_url)+
+            Uri.Builder builder = new Uri.Builder();
+            builder.scheme("https")
+                    .authority(context.getString(R.string.movie_base_url))
+                    .appendPath("3")
+                    .appendPath("movie")
+                    .appendPath(String.valueOf(movie_id))
+                    .appendPath("videos")
+                    .appendQueryParameter("api_key", context.getString(R.string.api_key));
+            /*final String TRAILERS_URL=context.getString(R.string.movie_base_url)+
                     String.format(context.getString(R.string.remain_trailer_url),""+movie_id);
-            final String api_key=context.getString(R.string.api_key);
+            final String api_key=context.getString(R.string.api_key);*/
             //build uri for movies api
-            Uri builtUri=Uri.parse(TRAILERS_URL).buildUpon()
-                    .appendQueryParameter("api_key",api_key)
+            Uri builtUri=builder
                     .build();
 
             URL urlForTrailerMovieApi=new URL(builtUri.toString());
@@ -106,10 +113,14 @@ public class TrailersTask extends AsyncTask<Void,Void,String> {
 
             trailers.add(trailerKey);
         }
+        App.firstTrailerLink = null;
         TrailerAdapter trailerAdapter = new TrailerAdapter(context,trailers);
         trailer_list_view.setAdapter(trailerAdapter);
-        String firstTrailer = trailers.get(0);
-        App.firstTrailerLink = context.getString(R.string.youtube_base_url).concat(firstTrailer);
+        if (trailers.size()>0){
+            String firstTrailer = trailers.get(0);
+            App.firstTrailerLink = context.getString(R.string.youtube_base_url).concat(firstTrailer);
+        }
+
 
 
     }

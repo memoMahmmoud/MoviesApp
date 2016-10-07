@@ -39,12 +39,20 @@ public class ReviewsTask extends AsyncTask<Void,Void,String> {
     protected String doInBackground(Void... voids) {
 
         try {
-            final String REVIEWS_URL=context.getString(R.string.movie_base_url)+
+            Uri.Builder builder = new Uri.Builder();
+            builder.scheme("https")
+                    .authority(context.getString(R.string.movie_base_url))
+                    .appendPath("3")
+                    .appendPath("movie")
+                    .appendPath(String.valueOf(movie_id))
+                    .appendPath("reviews")
+                    .appendQueryParameter("api_key", context.getString(R.string.api_key));
+
+            /*final String REVIEWS_URL=context.getString(R.string.movie_base_url)+
                     String.format(context.getString(R.string.remain_review_url),""+movie_id);
-            final String api_key=context.getString(R.string.api_key);
+            final String api_key=context.getString(R.string.api_key);*/
             //build uri for movies api
-            Uri builtUri=Uri.parse(REVIEWS_URL).buildUpon()
-                    .appendQueryParameter("api_key",api_key)
+            Uri builtUri=builder
                     .build();
 
             URL urlForReviewMovieApi=new URL(builtUri.toString());
