@@ -14,11 +14,18 @@
         android:horizontalSpacing="0dp"
         android:stretchMode="columnWidth"
         android:scrollbars="vertical"/>-->
-    <android.support.v7.widget.RecyclerView
+    <!--<android.support.v7.widget.RecyclerView
         android:id="@+id/listView_movies"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        />
+        />-->
+    <apps.mai.moviesapp.rest.AutofitRecyclerView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/listView_movies"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:columnWidth="@dimen/column_width"
+        android:clipToPadding="false"/>
     <TextView
         android:id="@+id/empty_view"
         android:layout_width="match_parent"

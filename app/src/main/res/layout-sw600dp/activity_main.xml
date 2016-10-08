@@ -19,12 +19,12 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:id="@+id/movies_fragment"
-            android:name="apps.mai.moviesapp.MoviesFragment"></fragment>
+            android:name="apps.mai.moviesapp.MoviesFragment"/>
         <FrameLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="2"
-            android:id="@+id/movie_detail"></FrameLayout>
+            android:id="@+id/movie_detail"/>
     </LinearLayout>
 
 

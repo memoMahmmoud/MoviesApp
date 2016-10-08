@@ -13,10 +13,8 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
-import android.support.v4.view.MenuItemCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.ShareActionProvider;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -48,8 +46,6 @@ public class DetailFragment extends Fragment implements LoaderManager.LoaderCall
     @BindView(R.id.listView_reviews) RecyclerView review_list_view;
     @BindView(R.id.button_favorite) Button favorite_button;
     private static final int CURSOR_LOADER_ID = 0;
-    ShareActionProvider shareActionProvider;
-
     TrailersTask trailersTask;
     ReviewsTask reviewsTask;
     static final String DETAIL_URI = "URI";
@@ -141,22 +137,12 @@ public class DetailFragment extends Fragment implements LoaderManager.LoaderCall
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        getLoaderManager().restartLoader(CURSOR_LOADER_ID, null,this);
+        getLoaderManager().initLoader(CURSOR_LOADER_ID, null,this);
     }
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
         inflater.inflate(R.menu.detail_fragment_menu,menu);
-        //retreive share menu item
-        MenuItem shareItem=menu.findItem(R.id.menu_item_share);
-        //getting shared action provider and attached to our intent
-        shareActionProvider= (ShareActionProvider)
-                MenuItemCompat.getActionProvider(shareItem);
-
-
-        /*shareActionProvider.setShareIntent(createShareForecastIntent());*/
-
-
     }
 
     @Override
@@ -179,36 +165,6 @@ public class DetailFragment extends Fragment implements LoaderManager.LoaderCall
 
         }
         return super.onOptionsItemSelected(item);
-    }
-
-    private Intent createShareForecastIntent(){
-        /*if (App.firstTrailerLink != null){
-            return new Intent(Intent.ACTION_VIEW,
-                    Uri.parse(App.firstTrailerLink));
-        }
-        return null;*/
-
-        //intent.setType("text/*");
-        if (App.firstTrailerLink != null) {
-
-            intent = new Intent(Intent.ACTION_VIEW);
-            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET);
-            intent.setData(Uri.parse(App.firstTrailerLink));
-
-            //intent.setDataAndType(Uri.parse(App.firstTrailerLink), "video/*");
-            //intent.putExtra(Intent.EXTRA_ORIGINATING_URI,Uri.parse(App.firstTrailerLink));
-            return intent;
-        }
-        else return null;
-
-
-
-
-        /*Intent intent=new Intent(Intent.ACTION_SEND);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET);
-        intent.setType("text/plain");
-        intent.putExtra(Intent.EXTRA_TEXT,"maiiiiiiiii");
-        return intent;*/
     }
     @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
@@ -264,11 +220,7 @@ public class DetailFragment extends Fragment implements LoaderManager.LoaderCall
 
                 reviewsTask = new ReviewsTask(getActivity(),movie_id,review_list_view);
                 reviewsTask.execute();
-                // If onCreateOptionsMenu has already happened, we need to update the share intent now.
-                /*if (shareActionProvider != null) {
-                    shareActionProvider.setShareIntent(createShareForecastIntent());
-                    startActivity(intent);
-                }*/
+
             }
 
         }

@@ -1,10 +1,6 @@
 <resources xmlns:xliff="http://schemas.android.com/tools">
     <string name="app_name" translatable="false">Movies App</string>
     <string name="movie_base_url" translatable="false">api.themoviedb.org</string>
-    <string name="popular_movies_remain_url" translatable="false">movie/popular</string>
-    <string name="top_rated_movies_remain_url" translatable="false">movie/top_rated</string>
-    <string name="remain_trailer_url" translatable="false">movie/<xliff:g id="movie_id">%1$s</xliff:g>/videos</string>
-    <string name="remain_review_url" translatable="false">movie/<xliff:g id="movie_id">%1$s</xliff:g>/reviews</string>
     <string name="api_key" translatable="false">9e874844d50ba20104e9f49185e2389c</string>
     <string name="poster_path_base_url" translatable="false">http://image.tmdb.org/t/p/</string>
     <string name="size_poster" translatable="false">w185/</string>

@@ -45,6 +45,7 @@ public class MainActivity extends AppCompatActivity implements Serializable,Movi
         if (Utility.isOnline(this)){
             FetchMoviesTask fetchMoviesTask=new FetchMoviesTask(sort_position,this);
             fetchMoviesTask.execute();
+
         }
         else {
             Toast.makeText(this,"no internet to fetch data",Toast.LENGTH_LONG).show();
@@ -101,6 +102,8 @@ public class MainActivity extends AppCompatActivity implements Serializable,Movi
 
             if ( moviesFragment != null ) {
                 moviesFragment.onSortChanged(last_sort);
+
+
             }
             sort_position = last_sort;
 

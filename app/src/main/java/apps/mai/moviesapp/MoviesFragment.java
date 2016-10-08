@@ -37,8 +37,7 @@ public class MoviesFragment extends Fragment implements LoaderManager.LoaderCall
     private MovieCursorAdapter mCursorAdapter;
     String selection;
     String[] arg_selections;
-    int mPosition;
-    public static final String SELECTED_KEY_POSITION = "position";
+    int sort;
     private Unbinder unbinder;
 
 
@@ -55,10 +54,9 @@ public class MoviesFragment extends Fragment implements LoaderManager.LoaderCall
         View view = inflater.inflate(R.layout.fragment_movies, container, false);
         unbinder = ButterKnife.bind(this,view);
 
-        lLayout= new GridLayoutManager(getActivity(),3);
-        //rView= (RecyclerView)view.findViewById();
+        //lLayout= new GridLayoutManager(getActivity(),3);
         rView.setHasFixedSize(true);
-        rView.setLayoutManager(lLayout);
+        //rView.setLayoutManager(lLayout);
         mCursorAdapter = new MovieCursorAdapter(getContext(), null);
         rView.setAdapter(mCursorAdapter);
 
@@ -96,7 +94,7 @@ public class MoviesFragment extends Fragment implements LoaderManager.LoaderCall
 
     @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
-        int sort = Utility.getPreferredSort(getContext());
+        sort= Utility.getPreferredSort(getContext());
 
         //user select popular
         if (sort == 0){
@@ -124,16 +122,19 @@ public class MoviesFragment extends Fragment implements LoaderManager.LoaderCall
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
         mCursorAdapter.swapCursor(data);
-        if (data.getCount()> 0){
-            rView.setVisibility(View.VISIBLE);
-            emptyView.setVisibility(View.GONE);
+        //this is favorite movies
+        if (sort == 2){
+            if (data.getCount()> 0){
+                rView.setVisibility(View.VISIBLE);
+                emptyView.setVisibility(View.GONE);
+            }
+            // no data to display for user
+            else {
+                rView.setVisibility(View.GONE);
+                emptyView.setVisibility(View.VISIBLE);
+            }
         }
-        // no data to display for user
-        else {
-            rView.setVisibility(View.GONE);
-            //rView.setVisibility(View.VISIBLE);
-            emptyView.setVisibility(View.VISIBLE);
-        }
+
 
     }
 

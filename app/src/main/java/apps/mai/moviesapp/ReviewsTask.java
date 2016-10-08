@@ -4,30 +4,27 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.util.ArrayList;
+import java.util.List;
+
+import apps.mai.moviesapp.Model.Review;
+import apps.mai.moviesapp.Model.ReviewResults;
+import apps.mai.moviesapp.interfaces.FetchMoviesAPI;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
  * Created by Mai_ on 24-Sep-16.
  */
-public class ReviewsTask extends AsyncTask<Void,Void,String> {
-    private final String LOG_TAG=FetchMoviesTask.class.getSimpleName();
-    HttpURLConnection urlConnection;
-    BufferedReader reader;
-    String reviewJsonStr;
+public class ReviewsTask extends AsyncTask<Void,Void,Void> {
     Context context;
     int movie_id;
     RecyclerView review_list_view;
+    ArrayList<String> reviewsString;
     ReviewsTask(Context context,int movie_id,RecyclerView review_list_view){
         this.context = context;
         this.movie_id = movie_id;
@@ -36,90 +33,43 @@ public class ReviewsTask extends AsyncTask<Void,Void,String> {
 
 
     @Override
-    protected String doInBackground(Void... voids) {
+    protected Void doInBackground(Void... voids) {
+        Uri.Builder builder = new Uri.Builder();
+        builder.scheme("https")
+                .authority(context.getString(R.string.movie_base_url));
 
-        try {
-            Uri.Builder builder = new Uri.Builder();
-            builder.scheme("https")
-                    .authority(context.getString(R.string.movie_base_url))
-                    .appendPath("3")
-                    .appendPath("movie")
-                    .appendPath(String.valueOf(movie_id))
-                    .appendPath("reviews")
-                    .appendQueryParameter("api_key", context.getString(R.string.api_key));
-
-            /*final String REVIEWS_URL=context.getString(R.string.movie_base_url)+
-                    String.format(context.getString(R.string.remain_review_url),""+movie_id);
-            final String api_key=context.getString(R.string.api_key);*/
-            //build uri for movies api
-            Uri builtUri=builder
-                    .build();
-
-            URL urlForReviewMovieApi=new URL(builtUri.toString());
-
-            // Create the request to OpenMoviesApi, and open the connection
-            urlConnection= (HttpURLConnection) urlForReviewMovieApi.openConnection();
-            urlConnection.setRequestMethod("GET");
-            urlConnection.connect();
-
-            InputStreamReader inputStreamReader=new InputStreamReader(urlConnection.getInputStream());
-            reader=new BufferedReader(inputStreamReader);
-            StringBuffer stringBuffer=new StringBuffer();
-            String line;
-            while ((line=reader.readLine())!=null){
-                stringBuffer.append(line+"\n");
-            }
-            if (stringBuffer.length()!=0){
-                reviewJsonStr=stringBuffer.toString();
-                return reviewJsonStr;
-
-
-            }
-
-
-        } catch (IOException e) {
-            Log.e(LOG_TAG, "Error ", e);
-            return null;
-        } finally {
-            if (urlConnection!=null){
-                urlConnection.disconnect();
-            }
-            if(reader!=null){
-                try {
-                    reader.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                    Log.e("PlaceholderFragment", "Error closing stream", e);
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(builder.build().toString())
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        FetchMoviesAPI fetchMoviesAPI = retrofit.create(FetchMoviesAPI.class);
+        Call<ReviewResults> reviewResultsCall = fetchMoviesAPI.listResultsReviews(movie_id,
+                context.getString(R.string.api_key));
+        reviewResultsCall.enqueue(new Callback<ReviewResults>() {
+            @Override
+            public void onResponse(Call<ReviewResults> call, Response<ReviewResults> response) {
+                List<Review> reviews = response.body().getResults();
+                reviewsString= new ArrayList<String>();
+                for (int i=0; i<reviews.size(); i++){
+                    Review review = reviews.get(i);
+                    String reviewContent = review.getContent();
+                    reviewsString.add(reviewContent);
                 }
+                ReviewAdapter reviewAdapter = new ReviewAdapter(context,reviewsString);
+                review_list_view.setAdapter(reviewAdapter);
+
             }
-        }//finally in try-catch
+
+            @Override
+            public void onFailure(Call<ReviewResults> call, Throwable t) {
+
+            }
+        });
+
         return null;
 
     }//finish do in background
 
-    @Override
-    protected void onPostExecute(String string) {
-        try {
-            fetchTrailerFromJson(reviewJsonStr);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-    }
 
-    public void fetchTrailerFromJson(String json) throws JSONException {
-        JSONObject jsonObject = new JSONObject(json);
-        JSONArray results = jsonObject.getJSONArray("results");
-        final ArrayList<String> reviews = new ArrayList<>();
-        for (int i = 0; i<results.length();i++){
-            JSONObject reviewObject = results.getJSONObject(i);
-            String reviewContent = reviewObject.getString("content");
-
-            reviews.add(reviewContent);
-        }
-        ReviewAdapter reviewAdapter = new ReviewAdapter(context,reviews);
-        review_list_view.setAdapter(reviewAdapter);
-
-
-    }
 }
 
